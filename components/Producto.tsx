@@ -80,7 +80,7 @@ const Info = styled.div`
 
   
 
-export const Producto = ({result}) => {
+export const Producto = ({result}:any) => {
     const { name, logo, slug, description } = result;
     return (
       <Container>

@@ -1,7 +1,7 @@
 import { makeStyles, TextField, Modal, Button } from '@material-ui/core';
 import React,{ useState } from 'react'
 import styled from 'styled-components';
-import { fetchSinToken } from '../../helpers/fetch';
+import { fetchSinToken, fetchUrl } from '../../helpers/fetch';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,24 +28,41 @@ const useStyles = makeStyles((theme) => ({
 export const ComidaModal = (props:any) => {
     
     const styles= useStyles();
-    const { show, setShow, comidasele, title, children, peticionGet,...rest } = props;
+    const { show, setShow, comidasele, comidaset, title, children, peticionGet,...rest } = props;
     const [tipocomida, settipocomida] = useState({
         name: ''
     })
     
-    console.log(comidasele);
+    /* console.log(comidasele.slug); */
     const onClose = () => setShow(false);
+
+    const limpiar = () => comidaset({
+        slug: '',
+        name: ''
+    });
 
     const onsubmit = async(ev:any) => {
         ev.preventDefault();
-
+        const { slug } = comidasele;
         const { name } = tipocomida;
+
+        if (comidasele.slug) {
+            // Actualizar
+            const resp = await fetchUrl(`food_types/`,slug,{ name },'PUT');
+            console.log(resp);
+            onClose();
+            peticionGet();
+            limpiar();
+        } else {
+            
+            const resp = await fetchSinToken('/food_types/',{ name }, 'POST');
+            console.log(resp);
+            onClose();
+            peticionGet();
+        }
+
         
 
-        const resp = await fetchSinToken('/food_types/',{ name }, 'POST');
-        console.log(resp);
-        onClose();
-        peticionGet();
     }
 
     const handleChange = ({ target }:any) => {
@@ -60,11 +77,10 @@ export const ComidaModal = (props:any) => {
         <div className={styles.modal}>
                 <h3>{title}</h3>
                 
-                <TextField placeholder="Ingrese el tipo de comida" name="name" value={ comidasele.name } onChange={ handleChange } className={styles.inputMaterial }/>
+                <TextField placeholder="Ingrese el tipo de comida" name="name" /* value={ (comidasele.slug)?tipocomida.name:comidasele.name  } */ onChange={ handleChange } className={styles.inputMaterial }/>
                 <br/><br/>
                 <div align="right">
-                    <Button variant="contained" onClick={ onsubmit } color="primary">Insertar</Button>
-                    <Button variant="contained" onClick={ onsubmit } color="primary">Editar</Button>
+                    <Button variant="contained" onClick={ onsubmit } color="primary">Agregar</Button>
                     
                     
                     <Button variant="contained" onClick={ onClose }  color="secondary">Cancelar</Button>

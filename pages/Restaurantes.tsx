@@ -1,34 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
-import styled from "styled-components";
-import { ComidaModal } from "../components/Modal/ComidaModal";
-import { Navbar } from "../components/Navbar";
-import { mobile } from "../responsive";
+import styled from 'styled-components';
+import { Navbar } from '../components/Navbar';
+import { mobile } from '../responsive';
 import { fetchSinToken, fetchUrl } from '../helpers/fetch';
+import { RestauranteModal } from '../components/Modal/RestauranteModal';
 
-const Container = styled.div`
-`;
-
-/* const useStyles = makeStyles((theme) => ({
-    modal: {
-        position: 'absolute',
-        width: 400,
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
-      },
-      iconos:{
-        cursor: 'pointer'
-      }, 
-      inputMaterial:{
-        width: '100%'
-      }
-})) */
+const Container = styled.div``;
 
 const Wrapper = styled.div`
     padding: 50px;
@@ -64,31 +43,41 @@ const Eliminar = styled.button`
     cursor: pointer;
 `;
 
-const Comida = () => {
+const Image = styled.img`
+    height: 5%;
+    width: 100%;
+    z-index: 2;
+`;
+
+
+const Restaurantes = () => {
     const [showModal, setShowModal] = useState(false);
     const [data, setData] = useState([]);
-    const [comidaseleccionada, setcomidaseleccionada] = useState({
+    const [restauranteseleccionado, setrestauranteseleccionado] = useState({
         slug: '',
-        name: ''
+        name: '',
+        descripcion: '',
+        logo: '',
+        rating: 0,
+        food_type: ''
     });
-
 
     const onShowModal = () => {
         setShowModal(true);
-    };
+    }
 
     const peticionGet = async () => {
-        const resp = await fetchSinToken(`food_types/`,{});
+        const resp = await fetchSinToken(`restaurants/`,{});
         setData(resp);
     }
 
-    const seleccionar=(comida) =>{
-        setcomidaseleccionada(comida);
+    const seleccionar=( rest:any ) => {
+        setrestauranteseleccionado(rest);
         onShowModal();
     }
 
-    const peticionDelete = (comida:any) => {
-        const { name, slug } = comida;
+    const peticionDelete = (rest:any) => {
+        const { name, slug } = rest;
         Swal.fire({
             title: '¿ Borrar Tipo de Comida ?',
             text: `Esta a punto de borrar a ${name}`,
@@ -99,11 +88,11 @@ const Comida = () => {
             confirmButtonText: 'Si, borrarlo'
         }).then(async(result) => {
             if (result.isConfirmed) {
-                await fetchUrl(`food_types/`,slug,{},'DELETE');
+                await fetchUrl(`restaurants/`,slug,{},'DELETE');
                 
                 Swal.fire(
                     'Typo de comida',
-                    `${ comida.name } fue eliminado correctamente`,
+                    `${ name } fue eliminado correctamente`,
                     'success'
                 );
                 peticionGet();
@@ -114,6 +103,7 @@ const Comida = () => {
 
     useEffect(() => {
         peticionGet();
+        
     }, [])
 
     return (
@@ -127,20 +117,30 @@ const Comida = () => {
                             <TableRow>
                                 <TableCell>ID</TableCell>
                                 <TableCell>Nombre</TableCell>
+                                <TableCell>Descripcion</TableCell>
+                                <TableCell>Logo</TableCell>
+                                <TableCell>Clasificación</TableCell>
+                                <TableCell>Tipo de Comida</TableCell>
                                 <TableCell>Accion</TableCell>
 
                             </TableRow>
                         </TableHead>
 
                         <TableBody>
-                            {data.map(comida=>(
-                                <TableRow key={comida.slug}>
-                                    <TableCell>{comida.slug}</TableCell>
-                                    <TableCell>{comida.name}</TableCell>
+                            {data.map(rest=>(
+                                <TableRow key={rest.slug}>
+                                    <TableCell>{rest.slug}</TableCell>
+                                    <TableCell>{rest.name}</TableCell>
+                                    <TableCell>{rest.description}</TableCell>
                                     <TableCell>
-                                        <Editar onClick={ () => seleccionar(comida) }>Editar</Editar>
+                                        <Image src={rest.logo}/>
+                                    </TableCell>
+                                    <TableCell>{rest.rating}</TableCell>
+                                    <TableCell>{rest.food_type}</TableCell>
+                                    <TableCell>
+                                        <Editar onClick={ () => seleccionar(rest) }>Editar</Editar>
                                         {/* <Editar onClick={ onShowModal }>Editar</Editar> */}
-                                        <Eliminar onClick={()=>peticionDelete(comida)}>Eliminar</Eliminar>
+                                        <Eliminar onClick={()=>peticionDelete(rest)}>Eliminar</Eliminar>
                                     </TableCell>
                                 </TableRow>
 
@@ -149,11 +149,11 @@ const Comida = () => {
                     </Table>
                 </TableContainer>
             </Wrapper>
-            <ComidaModal show={showModal} setShow={setShowModal} comidasele={comidaseleccionada} comidaset={setcomidaseleccionada} title={'Tipo de Comida'} peticionGet={ peticionGet }>
+            <RestauranteModal show={showModal} setShow={setShowModal} restasele={restauranteseleccionado} restaset={setrestauranteseleccionado} peticionGet={ peticionGet }>
                 <h2>Contenido</h2>
-            </ComidaModal>
+            </RestauranteModal>
         </Container>
     )
-};
+}
 
-export default Comida;
+export default Restaurantes;

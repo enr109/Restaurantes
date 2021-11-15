@@ -3,7 +3,7 @@ const baseUrl = 'https://tellurium.behuns.com/api';
 
 
 export const fetchSinToken = async( endpoint:any, data:any, method = 'GET' ) => {
-    /* console.log(data); */
+    
 
     const url = `${ baseUrl }/${ endpoint }`;
     /* console.log( url); */
@@ -29,6 +29,26 @@ export const fetchSinToken = async( endpoint:any, data:any, method = 'GET' ) => 
 }
 
 
+export const fetchImagen = async( endpoint:any, data:any, logo:any, method = 'GET' ) => {
+    console.log(data);
+
+    const url = `${ baseUrl }/${ endpoint }`;
+
+    const resp = await fetch( url,{
+        method,
+        headers:{
+            'Content-type': 'multipart/form-data' && 'application/json'
+            /* 'Content-type': 'application/json' */
+        },
+        body: logo && JSON.stringify(data)
+        /* body: JSON.stringify(data) */
+    });
+
+    return await resp.json();
+
+}
+
+
 export const fetchUrl = async(endpoint:any, id:any, data:any,  method = 'GET' ) => {
     const url = `${ baseUrl }/${ endpoint }${id}/`;
     console.log(url);
@@ -45,7 +65,7 @@ export const fetchUrl = async(endpoint:any, id:any, data:any,  method = 'GET' ) 
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         });
 
         /* return await resp.json(); */
