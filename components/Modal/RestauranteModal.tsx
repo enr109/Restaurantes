@@ -1,6 +1,7 @@
 import { makeStyles, TextField, Modal, Button, Checkbox, FormGroup, FormControlLabel, Input } from '@material-ui/core';
 import React,{ useState, useEffect } from 'react'
 import styled from 'styled-components';
+import axios from 'axios';
 import { fetchSinToken, fetchUrl, fetchImagen } from '../../helpers/fetch';
 
 
@@ -37,11 +38,14 @@ const useStyles = makeStyles((theme) => ({
 export const RestauranteModal = (props:any) => {
     
     const styles= useStyles();
-    const { show, setShow, restasele, restaset, children, peticionGet,...rest } = props;
+    const { show, setShow, showU, setShowU, restasele, restaset, children, peticionGet,...rest } = props;
+    
     const [tipocomida, settipocomida] = useState([]);
+
     const [check, setcheck] = useState({
         food_type:[]
     });
+
     const [archivo, setarchivo] = useState({ logo:null});
     const [restaurante, setRestaurante] = useState({
         name:'',
@@ -61,7 +65,7 @@ export const RestauranteModal = (props:any) => {
     }, [])
     
     /* console.log(comidasele.slug); */
-    const onClose = () => setShow(false);
+    const onClose = () => {setShow(false), setShowU(false)};
 
     const limpiar = () => restaset({
         slug: '',
@@ -70,19 +74,19 @@ export const RestauranteModal = (props:any) => {
 
     const onsubmit = async(ev:any) => {
         ev.preventDefault();
-        const logo = new FormData();
+        const formdata = new FormData();
         const { slug } = restasele;
         const { name, description, rating } = restaurante;
         const { food_type } = check;
-        logo.append("logo",archivo);
+        /* logo.append("logo",archivo); */
         /* console.log(archivo.logo) */
-        /* formdata.append("name",name);
+        formdata.append("name",name);
         formdata.append("description",description);
         formdata.append("rating", rating);
-        formdata.append("food_type", food_type); */
+        formdata.append("food_type", food_type);
+        formdata.append("logo",archivo.logo);
         
         
-
         /* console.log(formdata); */
         
 
@@ -95,8 +99,17 @@ export const RestauranteModal = (props:any) => {
             limpiar();
         } else {
             
-            const resp = await fetchImagen('restaurants/',{name,description,rating,food_type},logo, 'POST');
-            console.log(resp);
+            /* const resp = await fetchImagen('restaurants/',{formdata}, 'POST');
+            console.log(resp); */
+
+            await axios({
+                method:'post',
+                url: 'https://tellurium.behuns.com/api/restaurants/',
+                data: formdata
+            }).then((response) =>{
+                console.log(response.data)
+            })
+
             onClose();
             peticionGet();
         }
@@ -121,18 +134,14 @@ export const RestauranteModal = (props:any) => {
             [name]: value
         });
 
-        /* console.log( restaurante); */
+        console.log( restaurante);
 
         
     }
 
-    const changeimagen = ({target}:any) => {
-        setarchivo(target.logo);
-        console.log(target);
-        
-    }
     
-    const handfile = (e) =>{
+    
+    const handfile = (e:any) =>{
         /* console.log(e.target.files,'$$$$');
         console.log(e.target.files[0], '$$$$$') */
 
@@ -142,7 +151,7 @@ export const RestauranteModal = (props:any) => {
     }
     const bodyInsertar = (
         <div className={styles.modal}>
-                <h3>Agrgar Restaurante</h3>
+                <h3>Agregar Restaurante</h3>
                 
                 <TextField  
                     name="name" 
@@ -193,10 +202,72 @@ export const RestauranteModal = (props:any) => {
     
         </div>
     );
+
+    const bodyUpdate = (
+        <div className={styles.modal}>
+                <h3>Actualizar Restaurante</h3>
+                
+                <TextField  
+                    name="name" 
+                    label="Nombre" /* value={ (comidasele.slug)?tipocomida.name:comidasele.name  } */
+                    value={restasele.name} 
+                    onChange={ handleChange } 
+                    className={styles.textField }/>
+                
+                <TextField  
+                    name="description" 
+                    label="Descripcion"
+                    value={restasele.description}  
+                    onChange={ handleChange } 
+                    className={styles.textField }/>
+                <TextField 
+                    name="rating" 
+                    label="Clasificación"  
+                    onChange={ handleChange }
+                    value={restasele.description}
+                    type="number" 
+                    className={styles.textField }/>
+                <Input type="file" name="file"  onChange={ (e) => handfile(e) }/>
+                <div>
+                    <FormGroup row>
+                        {tipocomida.map(tipo => (
+                            
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        value={tipo.slug} 
+                                        onChange={ ChangeCom }
+                                        name="foot_type"
+                                        />
+                                }
+                                label={tipo.name}
+                            />
+                        ))}
+                        
+
+                    </FormGroup>
+                    
+                </div>
+                
+
+                <div align="right">
+                    <Button variant="contained" onClick={ onsubmit } color="primary" className={styles.button }>Agregar</Button>
+                    
+                    
+                    <Button variant="contained" onClick={ onClose }  color="secondary" className={styles.button }>Cancelar</Button>
+                </div>
+    
+        </div>
+    );
     return (
-        <Modal open={show} >
-            
-            {bodyInsertar}
-        </Modal>
+        <div>
+            <Modal open={show} >
+                {bodyInsertar}
+            </Modal>
+            <Modal open={showU}>
+                {bodyUpdate}
+            </Modal>
+
+        </div>
     )
 }

@@ -52,6 +52,7 @@ const Image = styled.img`
 
 const Restaurantes = () => {
     const [showModal, setShowModal] = useState(false);
+    const [showModalUP, setShowModalUP] = useState(false);
     const [data, setData] = useState([]);
     const [restauranteseleccionado, setrestauranteseleccionado] = useState({
         slug: '',
@@ -66,6 +67,11 @@ const Restaurantes = () => {
         setShowModal(true);
     }
 
+    const onShowModalU = () => {
+        setShowModalUP(true);
+
+    }
+
     const peticionGet = async () => {
         const resp = await fetchSinToken(`restaurants/`,{});
         setData(resp);
@@ -73,13 +79,13 @@ const Restaurantes = () => {
 
     const seleccionar=( rest:any ) => {
         setrestauranteseleccionado(rest);
-        onShowModal();
+        onShowModalU();
     }
 
     const peticionDelete = (rest:any) => {
         const { name, slug } = rest;
         Swal.fire({
-            title: '¿ Borrar Tipo de Comida ?',
+            title: '¿ Borrar Restaurante ?',
             text: `Esta a punto de borrar a ${name}`,
             icon: 'question',
             showCancelButton: true,
@@ -91,7 +97,7 @@ const Restaurantes = () => {
                 await fetchUrl(`restaurants/`,slug,{},'DELETE');
                 
                 Swal.fire(
-                    'Typo de comida',
+                    'Restaurante',
                     `${ name } fue eliminado correctamente`,
                     'success'
                 );
@@ -149,7 +155,14 @@ const Restaurantes = () => {
                     </Table>
                 </TableContainer>
             </Wrapper>
-            <RestauranteModal show={showModal} setShow={setShowModal} restasele={restauranteseleccionado} restaset={setrestauranteseleccionado} peticionGet={ peticionGet }>
+            <RestauranteModal 
+                show={showModal} 
+                setShow={setShowModal}
+                showU={showModalUP}
+                setShowU={setShowModalUP} 
+                restasele={restauranteseleccionado} 
+                restaset={setrestauranteseleccionado} 
+                peticionGet={ peticionGet }>
                 <h2>Contenido</h2>
             </RestauranteModal>
         </Container>

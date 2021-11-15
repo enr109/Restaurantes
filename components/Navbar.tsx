@@ -18,6 +18,10 @@ const Wrapper = styled.div`
   ${mobile({ padding: "10px 0px" })}
 `;
 
+const Href = styled.a`
+
+`;
+
 const Left = styled.div`
   flex: 1;
   display: flex;
@@ -82,9 +86,15 @@ export const Navbar = () => {
                     <Logo>ROCK</Logo>
                 </Center>
                 <Right>
-                    <MenuItem>Home</MenuItem>
-                    <MenuItem>Tipo de Comidas</MenuItem>
-                    <MenuItem>Restaurantes</MenuItem>
+                    <MenuItem>
+                      <a href="/">Home</a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a href="/Comida">Tipo de Comidas</a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a href="/Restaurantes">Restaurantes</a>
+                    </MenuItem>
                 </Right>
             </Wrapper>
         </Container>

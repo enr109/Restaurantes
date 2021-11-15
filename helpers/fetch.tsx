@@ -29,18 +29,18 @@ export const fetchSinToken = async( endpoint:any, data:any, method = 'GET' ) => 
 }
 
 
-export const fetchImagen = async( endpoint:any, data:any, logo:any, method = 'GET' ) => {
-    console.log(data);
+export const fetchImagen = async( endpoint:any, data:any, method = 'GET' ) => {
+    console.log(JSON.stringify(data));
 
     const url = `${ baseUrl }/${ endpoint }`;
 
     const resp = await fetch( url,{
         method,
         headers:{
-            'Content-type': 'multipart/form-data' && 'application/json'
+            'Content-type': 'multipart/form-data' 
             /* 'Content-type': 'application/json' */
         },
-        body: logo && JSON.stringify(data)
+        body: data
         /* body: JSON.stringify(data) */
     });
 
