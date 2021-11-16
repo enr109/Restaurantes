@@ -120,8 +120,7 @@ export const RestauranteModal = (props:any) => {
     const ChangeCom = ({ target }:any) => {
         const {name, value} = target;
         setcheck({
-            
-            'food_type': [value]
+            'food_type':[value]
         });
 
         
@@ -176,6 +175,7 @@ export const RestauranteModal = (props:any) => {
                         {tipocomida.map(tipo => (
                             
                             <FormControlLabel
+                            key={tipo.slug}
                                 control={
                                     <Checkbox
                                         value={tipo.slug} 
@@ -217,8 +217,8 @@ export const RestauranteModal = (props:any) => {
                 <TextField  
                     name="description" 
                     label="Descripcion"
-                    value={restasele.description}  
                     onChange={ handleChange } 
+                    value={ restasele && restasele.description}  
                     className={styles.textField }/>
                 <TextField 
                     name="rating" 
@@ -233,6 +233,7 @@ export const RestauranteModal = (props:any) => {
                         {tipocomida.map(tipo => (
                             
                             <FormControlLabel
+                                key={tipo.slug}
                                 control={
                                     <Checkbox
                                         value={tipo.slug} 

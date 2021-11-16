@@ -1,13 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import { Layout } from '../components/layout/Layout';
-import { Restaurantes } from '../components/Restaurantes';
-import { Annomouncement } from '../components/Annomouncement';
 import { Productos } from '../components/Productos';
+import { Filtro } from '../components/Filtro';
+
 
 const Home: NextPage = () => {
+  
   return (
     <div>
       {/* <Annomouncement/> */}
@@ -18,6 +17,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Layout>
+        {/* <Filtro/> */}
         {/* <h1>Inicio</h1> */}
         <Productos/>
         {/* <Restaurantes/> */}

@@ -5,8 +5,20 @@ import { Navbar } from '../../components/Navbar';
 import { fetchSinToken } from '../../helpers/fetch';
 import { mobile } from '../../responsive';
 import { Remove } from '@material-ui/icons';
+import { Button, makeStyles, TextField } from '@material-ui/core';
+
 
 const Container = styled.div``;
+
+const useStyles = makeStyles((theme) => ({
+  
+    iconos:{
+      cursor: 'pointer'
+    }, 
+    inputMaterial:{
+      width: '100%'
+    }
+}));
 
 const Wrapper = styled.div`
   padding: 50px;
@@ -103,17 +115,18 @@ const Input = styled.input`
 `;
 
 const Butto = styled.button`
-height: 44px;
-margin: -5% 18% 0 20%;
-border:none;
-width: 25%;
+  height: 44px;
+  margin: -5% 18% 0 20%;
+  border:none;
+  width: 25%;
   height: 46px;
-  background: #E8956C;
+  background: white;
+  border: 2px solid #6d6e6d;
   font-family: inherit;
   font-weight: bold;
   color: inherit;
   letter-spacing: 1px;
-  
+  margin-top: 11%;
   cursor: pointer;
   width: 61%;
 `;
@@ -123,25 +136,16 @@ const Agreement = styled.span`
   margin: 20px 0px;
 `;
 
-const Button = styled.button`
+/* const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
   background-color: teal;
   color: white;
   cursor: pointer;
-`;
+`; */
 
-const Amount = styled.span`
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid teal;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0px 5px;
-`;
+
 
 const ComContenedor = styled.div``;
 
@@ -158,17 +162,20 @@ const ComContenedor = styled.div``;
 `; */
 
 const Comentario = styled.li`
+  margin-top:5%;
   border: 1px solid #e1e1e1;
   padding: 2rem;
+  list-style:none;
 `;
 
 
 const Producto = () => {
   
-    
+    const styles= useStyles();
     const router = useRouter();
     const { query: { id }} = router;
     /* console.log(id) */
+
     
     const [resultado, setResultado] = useState([]);
     const [tipo, setTipo] = useState([]);
@@ -239,30 +246,34 @@ const Producto = () => {
                     <ComContenedor>
                           <Form onSubmit = { onsubmi }>
                             <Agregar>Agregar Comentarios</Agregar>
-                            <Input 
+                            <TextField 
                               name="email" 
-                              placeholder="email" 
+                              label="email"
+                              className={ styles.inputMaterial } 
                               value={ comentario.email } 
                               onChange={handleChange}
                             />
-                            <Input 
+                            <TextField 
                               name="comments" 
-                              placeholder="comments"
+                              label="comments"
+                              className={ styles.inputMaterial } 
                               value={ comentario.comments } 
                               onChange={handleChange}
                             />
-                            <Input 
+                            <TextField 
                               name="rating" 
-                              placeholder="rating"
+                              label="rating"
+                              className={ styles.inputMaterial } 
                               type="number"
                               value={ comentario.rating } 
                               onChange={handleChange}
                             />
+                            {/* <Button>Agregar</Button> */}
                             <Butto /* onClick={() => peticionPost() } */>Agregar</Butto>
                           </Form>
                             {
                               reviews && reviews.map((review:any) => (
-                                <div>
+                                <div key={review.slug}>
                                   <Comentario>
                                     <p>{review.comments}</p>
                                     <p>Escrito por: 
@@ -276,12 +287,7 @@ const Producto = () => {
                             }
 
                     </ComContenedor>
-                    <AddContainer>
-                        <AmountContainer>
-                            
-                            
-                        </AmountContainer>
-                    </AddContainer>
+                    
                 </InfoContainer>
             </Wrapper>
         </Container>
