@@ -3,6 +3,8 @@ import React,{ useState, useEffect } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
 import { fetchSinToken, fetchUrl, fetchImagen } from '../../helpers/fetch';
+import Swal from 'sweetalert2';
+import { Food_type } from '../Interfaces/Productos';
 
 
 
@@ -31,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
       }, 
       inputMaterial:{
         width: '100%'
+      },
+      checkbox:{
+          marginTop: '10%'
       }
 }));
 
@@ -92,8 +97,18 @@ export const RestauranteModal = (props:any) => {
 
         if (slug) {
             // Actualizar
-            const resp = await fetchUrl(`food_types/`,slug,{ name },'PUT');
-            console.log(resp);
+            await axios({
+                method:'PUT',
+                url: `https://tellurium.behuns.com/api/restaurants/${slug}/`,
+                data: formdata
+            }).then((response) => {
+                console.log(response.data)
+                if ( response.data ){
+                    Swal.fire('Actualizado', 'Actualizado Correctamente','success');
+                }
+            })
+            /* const resp = await fetchUrl(`food_types/`,slug,{ name },'PUT');
+            console.log(resp); */
             onClose();
             peticionGet();
             limpiar();
@@ -108,6 +123,9 @@ export const RestauranteModal = (props:any) => {
                 data: formdata
             }).then((response) =>{
                 console.log(response.data)
+                if ( response.data ){
+                    Swal.fire('Registrado', 'Registrado Correctamente', 'success');
+                }
             })
 
             onClose();
@@ -146,7 +164,7 @@ export const RestauranteModal = (props:any) => {
 
         let logo = e.target.files[0]
         setarchivo({'logo':logo})
-        console.log(archivo.logo +'$$$')
+        
     }
     const bodyInsertar = (
         <div className={styles.modal}>
@@ -163,22 +181,18 @@ export const RestauranteModal = (props:any) => {
                     label="Descripcion"  
                     onChange={ handleChange } 
                     className={styles.textField }/>
-                <TextField 
-                    name="rating" 
-                    label="Clasificación"  
-                    onChange={ handleChange }
-                    type="number" 
-                    className={styles.textField }/>
+                
                 <Input type="file" name="file" onChange={ (e) => handfile(e) }/>
                 <div>
                     <FormGroup row>
-                        {tipocomida.map(tipo => (
+                        {tipocomida.map((tipo:Food_type) => (
                             
                             <FormControlLabel
                             key={tipo.slug}
                                 control={
                                     <Checkbox
-                                        value={tipo.slug} 
+                                        value={tipo.slug}
+                                        className={ styles.checkbox } 
                                         onChange={ ChangeCom }
                                         name="foot_type"
                                         />
@@ -210,7 +224,7 @@ export const RestauranteModal = (props:any) => {
                 <TextField  
                     name="name" 
                     label="Nombre" /* value={ (comidasele.slug)?tipocomida.name:comidasele.name  } */
-                    value={restasele.name} 
+                    
                     onChange={ handleChange } 
                     className={styles.textField }/>
                 
@@ -218,19 +232,13 @@ export const RestauranteModal = (props:any) => {
                     name="description" 
                     label="Descripcion"
                     onChange={ handleChange } 
-                    value={ restasele && restasele.description}  
+                     
                     className={styles.textField }/>
-                <TextField 
-                    name="rating" 
-                    label="Clasificación"  
-                    onChange={ handleChange }
-                    value={restasele.description}
-                    type="number" 
-                    className={styles.textField }/>
+                
                 <Input type="file" name="file"  onChange={ (e) => handfile(e) }/>
                 <div>
                     <FormGroup row>
-                        {tipocomida.map(tipo => (
+                        {tipocomida.map((tipo:Food_type) => (
                             
                             <FormControlLabel
                                 key={tipo.slug}

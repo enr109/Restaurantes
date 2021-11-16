@@ -6,6 +6,7 @@ import { Navbar } from '../components/Navbar';
 import { mobile } from '../responsive';
 import { fetchSinToken, fetchUrl } from '../helpers/fetch';
 import { RestauranteModal } from '../components/Modal/RestauranteModal';
+import { Restaurante } from '../components/Interfaces/Productos';
 
 const Container = styled.div``;
 
@@ -95,12 +96,14 @@ const Restaurantes = () => {
         }).then(async(result) => {
             if (result.isConfirmed) {
                 await fetchUrl(`restaurants/`,slug,{},'DELETE');
-                
+
                 Swal.fire(
                     'Restaurante',
                     `${ name } fue eliminado correctamente`,
                     'success'
                 );
+                
+                
                 peticionGet();
                 
             }
@@ -133,7 +136,7 @@ const Restaurantes = () => {
                         </TableHead>
 
                         <TableBody>
-                            {data.map(rest=>(
+                            {data.map((rest:Restaurante)=>(
                                 <TableRow key={rest.slug}>
                                     <TableCell>{rest.slug}</TableCell>
                                     <TableCell>{rest.name}</TableCell>

@@ -1,34 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
+import Head from 'next/head'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
 import styled from "styled-components";
 import { ComidaModal } from "../components/Modal/ComidaModal";
 import { Navbar } from "../components/Navbar";
 import { mobile } from "../responsive";
 import { fetchSinToken, fetchUrl } from '../helpers/fetch';
+import { Food_type } from '../components/Interfaces/Productos';
 
 const Container = styled.div`
 `;
 
-/* const useStyles = makeStyles((theme) => ({
-    modal: {
-        position: 'absolute',
-        width: 400,
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
-      },
-      iconos:{
-        cursor: 'pointer'
-      }, 
-      inputMaterial:{
-        width: '100%'
-      }
-})) */
+
 
 const Wrapper = styled.div`
     padding: 50px;
@@ -82,12 +66,12 @@ const Comida = () => {
         setData(resp);
     }
 
-    const seleccionar=(comida) =>{
+    const seleccionar=(comida:Food_type) =>{
         setcomidaseleccionada(comida);
         onShowModal();
     }
 
-    const peticionDelete = (comida:any) => {
+    const peticionDelete = (comida:Food_type) => {
         const { name, slug } = comida;
         Swal.fire({
             title: '¿ Borrar Tipo de Comida ?',
@@ -102,7 +86,7 @@ const Comida = () => {
                 await fetchUrl(`food_types/`,slug,{},'DELETE');
                 
                 Swal.fire(
-                    'Typo de comida',
+                    'Tipo de comida',
                     `${ comida.name } fue eliminado correctamente`,
                     'success'
                 );
@@ -118,6 +102,10 @@ const Comida = () => {
 
     return (
         <Container>
+            <Head>
+                <title>Tipos de Comida</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Navbar/>
             <Button onClick={ onShowModal }>Insertar</Button>
             <Wrapper>
@@ -133,7 +121,7 @@ const Comida = () => {
                         </TableHead>
 
                         <TableBody>
-                            {data.map(comida=>(
+                            {data.map((comida:Food_type)=>(
                                 <TableRow key={comida.slug}>
                                     <TableCell>{comida.slug}</TableCell>
                                     <TableCell>{comida.name}</TableCell>

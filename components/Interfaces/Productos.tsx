@@ -1,16 +1,17 @@
 export interface Restaurante {
     slug: string;
     name: string;
-    descripcion: string;
+    description: string;
     logo: string;
     rating: number;
-    food_types: Food_type;
+    food_type: Food_type;
     reviews: Reviews;
 
 }
 
 export interface Food_type {
-    food_type: string;
+    slug: string;
+    name: string;
 }
 
 export interface Reviews {

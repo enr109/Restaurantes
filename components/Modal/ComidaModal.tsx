@@ -1,6 +1,7 @@
 import { makeStyles, TextField, Modal, Button } from '@material-ui/core';
 import React,{ useState } from 'react'
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 import { fetchSinToken, fetchUrl } from '../../helpers/fetch';
 
 
@@ -41,6 +42,10 @@ export const ComidaModal = (props:any) => {
         name: ''
     });
 
+    const todoOk = () => {
+        return(tipocomida.name.length > 0 ) ? true : false;
+    }
+
     const onsubmit = async(ev:any) => {
         ev.preventDefault();
         const { slug } = comidasele;
@@ -48,15 +53,20 @@ export const ComidaModal = (props:any) => {
 
         if (comidasele.slug) {
             // Actualizar
-            const resp = await fetchUrl(`food_types/`,slug,{ name },'PUT');
-            console.log(resp);
+            const ok = await fetchUrl(`food_types/`,slug,{ name },'PUT');
+            
+            if ( ok ) {
+                Swal.fire('Actualizado', 'Actualizado Correctamente', 'success');   
+            }
             onClose();
             peticionGet();
             limpiar();
         } else {
             
-            const resp = await fetchSinToken('/food_types/',{ name }, 'POST');
-            console.log(resp);
+            const ok = await fetchSinToken('/food_types/',{ name }, 'POST');
+            if ( ok ) {
+                Swal.fire('Registro', 'Registrado Correctamente', 'success');
+            }
             onClose();
             peticionGet();
         }
@@ -80,7 +90,13 @@ export const ComidaModal = (props:any) => {
                 <TextField placeholder="Ingrese el tipo de comida" name="name" /* value={ (comidasele.slug)?tipocomida.name:comidasele.name  } */ onChange={ handleChange } className={styles.inputMaterial }/>
                 <br/><br/>
                 <div align="right">
-                    <Button variant="contained" onClick={ onsubmit } color="primary">Agregar</Button>
+                    <Button 
+                        variant="contained"
+                        disabled={ !todoOk() } 
+                        onClick={ onsubmit } 
+                        color="primary"
+                        >Agregar
+                    </Button>
                     
                     
                     <Button variant="contained" onClick={ onClose }  color="secondary">Cancelar</Button>

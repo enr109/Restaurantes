@@ -60,7 +60,7 @@ export const Productos = () => {
         consultarAPI();
     }, []);
 
-    const filterrestaurantes = (): any => {
+    const filterrestaurantes = ():any => {
         if ( !search) {
             /* console.log(resultado.description) */
             return resultado;
@@ -75,8 +75,8 @@ export const Productos = () => {
     const handleChange = ({ target }:any)=> {
         const { name, value } = target;
         setsearch(value);
-        console.log(search );
-        /* console.log(name,value); */
+        
+        
     }
 
     
@@ -97,7 +97,7 @@ export const Productos = () => {
             </FilterContainer>
             
             <ContainerImg>
-            {filterrestaurantes().map((result) => (
+            {filterrestaurantes().map((result:any) => (
                 <Producto key={ result.slug} result={result} />
             ))}
             {/* <Producto

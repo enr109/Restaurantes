@@ -38,10 +38,10 @@ export const fetchImagen = async( endpoint:any, data:any, method = 'GET' ) => {
         method,
         headers:{
             'Content-type': 'multipart/form-data' 
-            /* 'Content-type': 'application/json' */
+            
         },
         body: data
-        /* body: JSON.stringify(data) */
+        
     });
 
     return await resp.json();
@@ -68,7 +68,7 @@ export const fetchUrl = async(endpoint:any, id:any, data:any,  method = 'GET' ) 
             body: JSON.stringify(data),
         });
 
-        /* return await resp.json(); */
+        return await resp.json();
     }
     
 }

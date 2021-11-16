@@ -77,10 +77,7 @@ export const Navbar = () => {
             <Wrapper>
                 <Left>
                     <Language>EN</Language>
-                    <SearchContainer>
-                        <Input placeholder="Search"/>
-                        <Search style={{ color: "gray", fontSize:16 }}/>
-                    </SearchContainer>
+                    
                 </Left>
                 <Center>
                     <Logo>ROCK</Logo>
