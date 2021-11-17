@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { ComidaModal } from "../components/Modal/ComidaModal";
 import { Navbar } from "../components/Navbar";
 import { mobile } from "../responsive";
-import { fetchSinToken, fetchUrl } from '../helpers/fetch';
+import { fetchSinToken, fetcheliminar } from '../helpers/fetch';
 import { Food_type } from '../components/Interfaces/Productos';
 
 const Container = styled.div`
@@ -83,7 +83,7 @@ const Comida = () => {
             confirmButtonText: 'Si, borrarlo'
         }).then(async(result) => {
             if (result.isConfirmed) {
-                await fetchUrl(`food_types/`,slug,{},'DELETE');
+                await fetcheliminar(`food_types/`,slug,{},'DELETE');
                 
                 Swal.fire(
                     'Tipo de comida',

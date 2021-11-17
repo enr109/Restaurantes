@@ -65,8 +65,8 @@ export const Productos = () => {
             
             return resultado;
         } else {
-            const filtered = resultado.filter( rest => rest.food_type.includes(search));
-            console.log(filtered)
+            const filtered = resultado.filter( (rest:any) => rest.food_type.includes(search));
+            
             return filtered;
         }
 

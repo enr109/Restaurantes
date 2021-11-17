@@ -71,6 +71,8 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
+const Ahref = styled.a``;
+
 export const Navbar = () => {
     return (
         <Container>
@@ -84,13 +86,13 @@ export const Navbar = () => {
                 </Center>
                 <Right>
                     <MenuItem>
-                      <a href="/">Home</a>
+                      <Ahref href="/">Home</Ahref>
                     </MenuItem>
                     <MenuItem>
-                      <a href="/Comida">Tipo de Comidas</a>
+                      <Ahref href="/Comida">Tipo de Comida</Ahref>
                     </MenuItem>
                     <MenuItem>
-                      <a href="/Restaurantes">Restaurantes</a>
+                      <Ahref href="/Restaurantes">Restaurantes</Ahref>
                     </MenuItem>
                 </Right>
             </Wrapper>

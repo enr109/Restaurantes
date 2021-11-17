@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 import styled from 'styled-components';
 import { Navbar } from '../components/Navbar';
 import { mobile } from '../responsive';
-import { fetchSinToken, fetchUrl } from '../helpers/fetch';
+import { fetchSinToken, fetcheliminar } from '../helpers/fetch';
 import { RestauranteModal } from '../components/Modal/RestauranteModal';
 import { Restaurante } from '../components/Interfaces/Productos';
 
@@ -95,7 +95,7 @@ const Restaurantes = () => {
             confirmButtonText: 'Si, borrarlo'
         }).then(async(result) => {
             if (result.isConfirmed) {
-                await fetchUrl(`restaurants/`,slug,{},'DELETE');
+                await fetcheliminar(`restaurants/`,slug,{},'DELETE');
 
                 Swal.fire(
                     'Restaurante',

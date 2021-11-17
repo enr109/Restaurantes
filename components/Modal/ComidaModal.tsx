@@ -89,7 +89,7 @@ export const ComidaModal = (props:any) => {
                 
                 <TextField placeholder="Ingrese el tipo de comida" name="name" /* value={ (comidasele.slug)?tipocomida.name:comidasele.name  } */ onChange={ handleChange } className={styles.inputMaterial }/>
                 <br/><br/>
-                <div align="right">
+                <div>
                     <Button 
                         variant="contained"
                         disabled={ !todoOk() } 

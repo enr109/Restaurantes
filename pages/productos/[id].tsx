@@ -154,7 +154,9 @@ const Producto = () => {
 
     
     const [resultado, setResultado] = useState([]);
-    const [tipo, setTipo] = useState([]);
+    const [tipo, setTipo] = useState({
+      name:''
+    });
 
     const [comentario, setComentario] = useState({
       restaurant:'',
@@ -171,7 +173,7 @@ const Producto = () => {
       const { restaurant, email, comments, rating } = comentario;
 
       const resp = await fetchSinToken('/reviews/',{ restaurant, email, comments, rating }, 'POST');
-      console.log(resp);
+      
     }
     
     

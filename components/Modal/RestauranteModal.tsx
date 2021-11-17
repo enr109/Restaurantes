@@ -48,7 +48,7 @@ export const RestauranteModal = (props:any) => {
     const [tipocomida, settipocomida] = useState([]);
 
     const [check, setcheck] = useState({
-        food_type:[]
+        
     });
 
     const [archivo, setarchivo] = useState({ logo:null});
@@ -81,15 +81,16 @@ export const RestauranteModal = (props:any) => {
         ev.preventDefault();
         const formdata = new FormData();
         const { slug } = restasele;
-        const { name, description, rating } = restaurante;
-        const { food_type } = check;
+        const { name, description, rating }:any = restaurante;
+        const { food_type }:any = check;
+        const { logo }:any = archivo;
         /* logo.append("logo",archivo); */
         /* console.log(archivo.logo) */
         formdata.append("name",name);
         formdata.append("description",description);
         formdata.append("rating", rating);
         formdata.append("food_type", food_type);
-        formdata.append("logo",archivo.logo);
+        formdata.append("logo",logo);
         
         
         /* console.log(formdata); */
@@ -151,7 +152,7 @@ export const RestauranteModal = (props:any) => {
             [name]: value
         });
 
-        console.log( restaurante);
+        
 
         
     }
@@ -207,7 +208,7 @@ export const RestauranteModal = (props:any) => {
                 </div>
                 
 
-                <div align="right">
+                <div>
                     <Button variant="contained" onClick={ onsubmit } color="primary" className={styles.button }>Agregar</Button>
                     
                     
@@ -259,7 +260,7 @@ export const RestauranteModal = (props:any) => {
                 </div>
                 
 
-                <div align="right">
+                <div>
                     <Button variant="contained" onClick={ onsubmit } color="primary" className={styles.button }>Agregar</Button>
                     
                     

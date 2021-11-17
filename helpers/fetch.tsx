@@ -72,3 +72,19 @@ export const fetchUrl = async(endpoint:any, id:any, data:any,  method = 'GET' ) 
     }
     
 }
+
+export const fetcheliminar = async(endpoint:any, id:any, data:any,  method = 'GET') => {
+
+    const url = `${ baseUrl }/${ endpoint }${id}/`;
+    
+
+    await fetch( url, {
+        method,
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    });
+    
+
+}
