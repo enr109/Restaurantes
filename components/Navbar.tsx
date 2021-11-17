@@ -80,7 +80,7 @@ export const Navbar = () => {
                     
                 </Left>
                 <Center>
-                    <Logo>ROCK</Logo>
+                    <Logo>ROCKETHUB</Logo>
                 </Center>
                 <Right>
                     <MenuItem>

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Navbar } from '../../components/Navbar';
 import { fetchSinToken } from '../../helpers/fetch';
 import { mobile } from '../../responsive';
-import { Remove } from '@material-ui/icons';
 import { Button, makeStyles, TextField } from '@material-ui/core';
 
 
@@ -92,13 +91,7 @@ const Form = styled.form`
   background-color: #fbfbfb;
 `;
 
-/* const Form = styled.form`
-  display: flex;
-  width: 40%;
-  padding:20px;
-  flex-wrap: wrap;
-  background-color: #c52424;
-`; */
+
 
 const Input = styled.input`
   flex: 1;
@@ -136,30 +129,13 @@ const Agreement = styled.span`
   margin: 20px 0px;
 `;
 
-/* const Button = styled.button`
-  width: 40%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-`; */
+
 
 
 
 const ComContenedor = styled.div``;
 
-/* const Button = styled.button`
-  padding: 15px;
-  border: 2px solid teal;
-  background-color: white;
-  cursor: pointer;
-  font-weight: 500;
 
-  &:hover{
-      background-color: #f8f4f4;
-  }
-`; */
 
 const Comentario = styled.li`
   margin-top:5%;
@@ -198,9 +174,7 @@ const Producto = () => {
       console.log(resp);
     }
     
-    /* const peticionPost = async() => {
-      const resp = await fetchSinToken(`/reviews/{slug}/`);
-    } */
+    
     useEffect(() => {
         const consultarAPI = async () => {
             
@@ -225,10 +199,10 @@ const Producto = () => {
         restaurant:slug,
         [name]: value
       })
-      /* console.log(comentario); */
+      
     
     }
-    /* console.log(reviews) */
+    
     return (
         <Container>
             <Navbar/>
@@ -268,8 +242,8 @@ const Producto = () => {
                               value={ comentario.rating } 
                               onChange={handleChange}
                             />
-                            {/* <Button>Agregar</Button> */}
-                            <Butto /* onClick={() => peticionPost() } */>Agregar</Butto>
+                            
+                            <Butto >Agregar</Butto>
                           </Form>
                             {
                               reviews && reviews.map((review:any) => (

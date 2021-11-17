@@ -62,7 +62,7 @@ export const Productos = () => {
 
     const filterrestaurantes = ():any => {
         if ( !search) {
-            /* console.log(resultado.description) */
+            
             return resultado;
         } else {
             const filtered = resultado.filter( rest => rest.food_type.includes(search));
@@ -100,9 +100,7 @@ export const Productos = () => {
             {filterrestaurantes().map((result:any) => (
                 <Producto key={ result.slug} result={result} />
             ))}
-            {/* <Producto
-                resultado={ resultado }
-            /> */}
+            
             </ContainerImg>
         </Container>
     )

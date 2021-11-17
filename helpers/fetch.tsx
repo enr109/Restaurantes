@@ -6,7 +6,7 @@ export const fetchSinToken = async( endpoint:any, data:any, method = 'GET' ) => 
     
 
     const url = `${ baseUrl }/${ endpoint }`;
-    /* console.log( url); */
+    
 
     if ( method === 'GET' ) {
         const resp = await fetch( url,{
@@ -30,7 +30,7 @@ export const fetchSinToken = async( endpoint:any, data:any, method = 'GET' ) => 
 
 
 export const fetchImagen = async( endpoint:any, data:any, method = 'GET' ) => {
-    console.log(JSON.stringify(data));
+    
 
     const url = `${ baseUrl }/${ endpoint }`;
 
@@ -51,7 +51,7 @@ export const fetchImagen = async( endpoint:any, data:any, method = 'GET' ) => {
 
 export const fetchUrl = async(endpoint:any, id:any, data:any,  method = 'GET' ) => {
     const url = `${ baseUrl }/${ endpoint }${id}/`;
-    console.log(url);
+    
 
     if ( method === 'GET' ) {
         const resp = await fetch( url,{
