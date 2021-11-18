@@ -11,5 +11,7 @@
     "app.description": "Descripcion",
     "app.logo": "Logo",
     "app.classification": "Clasificación",
-    "app.select": "Por favor seleccione"
+    "app.select": "Por favor seleccione",
+    "app.comment": "Comentario",
+    "app.add": "Agregar"
 }

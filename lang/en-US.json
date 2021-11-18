@@ -11,5 +11,7 @@
     "app.description": "Description",
     "app.logo": "Logo",
     "app.classification": "Classification",
-    "app.select": "Please select"
+    "app.select": "Please select",
+    "app.comment": "Comment",
+    "app.add": "Add"
 }

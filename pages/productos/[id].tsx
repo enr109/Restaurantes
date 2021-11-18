@@ -5,6 +5,8 @@ import { Navbar } from '../../components/Navbar';
 import { fetchSinToken } from '../../helpers/fetch';
 import { mobile } from '../../responsive';
 import { Button, makeStyles, TextField } from '@material-ui/core';
+import { LangContext } from '../../context/LangContext';
+import { FormattedMessage } from 'react-intl';
 
 
 const Container = styled.div``;
@@ -206,6 +208,7 @@ const Producto = () => {
     }
     
     return (
+      <LangContext>
         <Container>
             <Navbar/>
             <Wrapper>
@@ -215,13 +218,28 @@ const Producto = () => {
                 <InfoContainer>
                     <Title>{ name }</Title>
                     <Desc>{ description}</Desc>
-                    <Titulo>Clasificación</Titulo>
+                    <Titulo>
+                      <FormattedMessage
+                        id="app.classification"
+                        defaultMessage="Classification"
+                      />
+                    </Titulo>
                     <Price>{ rating }</Price>
-                    <Titulo>Tipo de comida</Titulo>
+                    <Titulo>
+                      <FormattedMessage
+                        id="app.foodtype"
+                        defaultMessage="Food type"
+                      />
+                    </Titulo>
                     <Tipo>{tipo.name }</Tipo>
                     <ComContenedor>
                           <Form onSubmit = { onsubmi }>
-                            <Agregar>Agregar Comentarios</Agregar>
+                            <Agregar>
+                              <FormattedMessage
+                                id="app.comment"
+                                defaultMessage="Comment"
+                              />
+                            </Agregar>
                             <TextField 
                               name="email" 
                               label="email"
@@ -245,7 +263,12 @@ const Producto = () => {
                               onChange={handleChange}
                             />
                             
-                            <Butto >Agregar</Butto>
+                            <Butto >
+                              <FormattedMessage
+                                id="app.add"
+                                defaultMessage="Add"
+                              />
+                            </Butto>
                           </Form>
                             {
                               reviews && reviews.map((review:any) => (
@@ -267,6 +290,7 @@ const Producto = () => {
                 </InfoContainer>
             </Wrapper>
         </Container>
+        </LangContext>
         
     )
 }
