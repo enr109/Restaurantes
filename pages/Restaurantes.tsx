@@ -7,6 +7,8 @@ import { mobile } from '../responsive';
 import { fetchSinToken, fetcheliminar } from '../helpers/fetch';
 import { RestauranteModal } from '../components/Modal/RestauranteModal';
 import { Restaurante } from '../components/Interfaces/Productos';
+import { LangContext } from '../context/LangContext';
+import { FormattedMessage } from "react-intl";
 
 const Container = styled.div``;
 
@@ -116,21 +118,57 @@ const Restaurantes = () => {
     }, [])
 
     return (
+        <LangContext>
         <Container>
             <Navbar/>
-            <Button onClick={ onShowModal }>Insertar</Button>
+            <Button onClick={ onShowModal }>
+                <FormattedMessage
+                    id="app.insert"
+                    defaultMessage="Insert"
+                />
+            </Button>
             <Wrapper>
                 <TableContainer>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>ID</TableCell>
-                                <TableCell>Nombre</TableCell>
-                                <TableCell>Descripcion</TableCell>
+                                <TableCell>
+                                    <FormattedMessage
+                                        id="app.id"
+                                        defaultMessage="ID"
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <FormattedMessage
+                                        id="app.name"
+                                        defaultMessage="Name"
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <FormattedMessage
+                                        id="app.description"
+                                        defaultMessage="Description"
+                                    />
+                                </TableCell>
                                 <TableCell>Logo</TableCell>
-                                <TableCell>Clasificación</TableCell>
-                                <TableCell>Tipo de Comida</TableCell>
-                                <TableCell>Accion</TableCell>
+                                <TableCell>
+                                    <FormattedMessage
+                                        id="app.classification"
+                                        defaultMessage="Classification"
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <FormattedMessage
+                                        id="app.foodtype"
+                                        defaultMessage="Food type"
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <FormattedMessage
+                                        id="app.action"
+                                        defaultMessage="Action"
+                                    />
+                                </TableCell>
 
                             </TableRow>
                         </TableHead>
@@ -147,9 +185,19 @@ const Restaurantes = () => {
                                     <TableCell>{rest.rating}</TableCell>
                                     <TableCell>{rest.food_type}</TableCell>
                                     <TableCell>
-                                        <Editar onClick={ () => seleccionar(rest) }>Editar</Editar>
+                                        <Editar onClick={ () => seleccionar(rest) }>
+                                            <FormattedMessage
+                                                id="app.edit"
+                                                defaultMessage="Edit"
+                                            />
+                                        </Editar>
                                         {/* <Editar onClick={ onShowModal }>Editar</Editar> */}
-                                        <Eliminar onClick={()=>peticionDelete(rest)}>Eliminar</Eliminar>
+                                        <Eliminar onClick={()=>peticionDelete(rest)}>
+                                            <FormattedMessage
+                                                id="app.remove"
+                                                defaultMessage="Remove"
+                                            />
+                                        </Eliminar>
                                     </TableCell>
                                 </TableRow>
 
@@ -169,6 +217,7 @@ const Restaurantes = () => {
                 <h2>Contenido</h2>
             </RestauranteModal>
         </Container>
+        </LangContext>
     )
 }
 

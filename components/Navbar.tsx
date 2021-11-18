@@ -1,8 +1,8 @@
-import { Badge } from '@material-ui/core';
-import React from "react";
-import { Search } from '@material-ui/icons';
+import React, { useContext } from "react";
 import styled from 'styled-components';
 import { mobile } from '../responsive';
+import { IntlProvider, FormattedMessage } from 'react-intl';
+import { LangContext,langContext } from "../context/LangContext";
 
 
 const Container = styled.div`
@@ -33,6 +33,18 @@ const Language = styled.span`
   cursor: pointer;
   ${mobile({ display: "none" })}
 `;
+
+const Bandera = styled.button`
+  border: none;
+  margin-left: 1%;
+  background-color: white;
+  ${mobile({ display: "none" })}
+`;
+const Image = styled.img`
+  cursor: pointer;
+  width: 30px;
+`;
+
 
 const SearchContainer = styled.div`
   border: 0.5px solid lightgray;
@@ -74,11 +86,19 @@ const MenuItem = styled.div`
 const Ahref = styled.a``;
 
 export const Navbar = () => {
+  const { establecerLenguaje }:any = useContext(langContext);
+  /* console.log(idioma.establecerLenguaje()); */
+  
     return (
         <Container>
             <Wrapper>
                 <Left>
-                    <Language>EN</Language>
+                    <Bandera onClick={() => establecerLenguaje('es-MX')}>
+                      <Image src="https://i.ibb.co/ZXwkgSf/mejico.png"/>
+                    </Bandera>
+                    <Bandera onClick={() => establecerLenguaje('en-US')}>
+                      <Image src="https://i.ibb.co/F6fcn0N/unidos.png"/>
+                    </Bandera>
                     
                 </Left>
                 <Center>
@@ -86,13 +106,29 @@ export const Navbar = () => {
                 </Center>
                 <Right>
                     <MenuItem>
-                      <Ahref href="/">Home</Ahref>
+                      <Ahref href="/">
+                        <FormattedMessage 
+                            id="app.initiation"
+                            defaultMessage="Home"
+                        />
+                      </Ahref>
                     </MenuItem>
                     <MenuItem>
-                      <Ahref href="/Comida">Tipo de Comida</Ahref>
+                      <Ahref href="/Comida">
+                        <FormattedMessage 
+                            id="app.foodtype"
+                            defaultMessage="Food type"
+                        />
+                      </Ahref>
                     </MenuItem>
                     <MenuItem>
-                      <Ahref href="/Restaurantes">Restaurantes</Ahref>
+                      
+                      <Ahref href="/Restaurantes">
+                        <FormattedMessage 
+                          id="app.restaurants"
+                          defaultMessage="Restaurants"
+                        />
+                      </Ahref>
                     </MenuItem>
                 </Right>
             </Wrapper>

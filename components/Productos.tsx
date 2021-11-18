@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Producto } from "./Producto";
 import { fetchSinToken } from "../helpers/fetch";
 import { mobile } from "../responsive";
+import { FormattedMessage } from "react-intl";
 
 
 const Container = styled.div``;
@@ -84,9 +85,16 @@ export const Productos = () => {
         <Container>
             <FilterContainer>
                 <Filter>
-                    <FilterText>Tipo de comida</FilterText>
+                    <FilterText>
+                        <FormattedMessage
+                            id="app.foodtype"
+                            defaultMessage="Food type"
+                        />
+                    </FilterText>
                     <Select onChange={ handleChange }>
-                        <Option value="">Seleccione</Option>
+                        <Option value="">
+                            Seleccione
+                        </Option>
                         { tipo.map((tipo:any) => (
                             <Option key={tipo.slug} value={ tipo.slug } >
                                 { tipo.name }

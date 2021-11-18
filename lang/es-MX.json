@@ -1,0 +1,15 @@
+{
+    "app.initiation": "Inicio",
+    "app.foodtype": "Tipo de comida",
+    "app.restaurants": "Restaurantes",
+    "app.id": "Identificación",
+    "app.name": "Nombre",
+    "app.action": "Acccion",
+    "app.edit": "Editar",
+    "app.remove": "Eliminar",
+    "app.insert": "Insertar",
+    "app.description": "Descripcion",
+    "app.logo": "Logo",
+    "app.classification": "Clasificación",
+    "app.select": "Por favor seleccione"
+}
